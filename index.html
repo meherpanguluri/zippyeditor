@@ -6,6 +6,7 @@
         <title>ZippyEditor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="index.css">
+        <script src="editor.js"></script>
         <!--[if lt IE 9]>
             <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
         <![endif]-->
@@ -134,32 +135,7 @@
             </nav>
         </div>
         </header>
-     <div class="zippyeditor">
-        <div class="toolbar-text">
-           
-                <ul class="toolbar">
-                   <a href="#"> <li ><i class="fa fa-bold"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-italic"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-underline"></i></li></a>
-                     <a href="#"><li ><i class="fa fa-header"></i></li></a>
-                     <a href="#"><li ><i class="fa fa-font"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-undo"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-repeat"></i></li></a>
-                     <a href="#"><li ><i class="fa fa-align-left"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-align-justify"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-align-right"></i></li></a>
-                     <a href="#"><li ><i class="fa fa-list-ol"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-list-ul"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-table"></i></li></a>
-                     <a href="#"><li ><i class="fa fa-link"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-image"></i></li></a>
-                    <a href="#"><li ><i class="fa fa-paperclip"></li></i></a>
-                    <a href="#"><li ><i class="fa fa-save"></i></li></a>
-                </ul>
-        </div>
-        
-             <textarea class="box-editor"></textarea>
-    </div>
+        <zippy-editor></zippy-editor>
         <footer><span style="top:10px;position:relative;">Made with <span style="color:green;">&hearts;</span> by zippytalk</span></footer>
     </body>
 </html>
