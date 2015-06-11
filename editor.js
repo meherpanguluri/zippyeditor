@@ -1,11 +1,11 @@
-window.onload = function(){
+window.onload = function() {
    var ZippyEditor = document.registerElement('zippy-editor');
    document.body.appendChild(new ZippyEditor());
     document.getElementsByTagName("zippy-editor")[0].innerHTML=
         '<div  id="editor_container">'+
         '<div  id="toolbar_header">'+
                 '<ul id="toolbar">'+
-                   '<a href="#" onclick="alr()"> <li><i class="fa fa-bold"></i></li></a>'+
+                   '<a href="#" onclick="ShowSelection()"> <li><i class="fa fa-bold"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-italic"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-underline"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-header"></i></li></a>'+
@@ -100,4 +100,30 @@ function showImage()
 function hideModal()
 {
     
+}
+function ShowSelection()
+{
+  var textComponent = document.getElementById('zippy-text-area');
+  var selectedText;
+  // IE version
+  if (document.selection != undefined)
+  {
+    textComponent.focus();
+    var sel = document.selection.createRange();
+    selectedText = sel.text;
+  }
+  // Mozilla version
+  else if (textComponent.selectionStart != undefined)
+  {
+    var startPos = textComponent.selectionStart;
+    var endPos = textComponent.selectionEnd;
+    //var prev = textComponent.value.substring(0, startPos-1) + "<b>"
+    
+    selectedText = textComponent.value.substring(startPos, endPos)
+    selectedText.style.font  
+    //var suc = "</b>"+textComponent.value.substring(endPos+1)
+    textComponent.style.fontWeight="bolder"
+    //textComponent.value = prev+selectedText+suc
+  }
+  alert("You selected: " + selectedText);
 }
