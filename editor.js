@@ -83,8 +83,7 @@ function ShowSelection()
     var endPos = textComponent.selectionEnd;
     //var prev = textComponent.value.substring(0, startPos-1) + "<b>"
     
-    selectedText = textComponent.value.substring(startPos, endPos)
-    selectedText.style.font  
+    selectedText = textComponent.value.substring(startPos, endPos) 
     //var suc = "</b>"+textComponent.value.substring(endPos+1)
     textComponent.style.fontWeight="bolder"
     //textComponent.value = prev+selectedText+suc
