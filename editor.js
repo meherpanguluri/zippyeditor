@@ -1,3 +1,4 @@
+var image;
 window.onload = function() {
    var ZippyEditor = document.registerElement('zippy-editor');
    document.body.appendChild(new ZippyEditor());
@@ -29,21 +30,54 @@ window.onload = function() {
     '<div id="overlay">'+
      '<div id="zip_image_box">'+
         '<div class="pull-right"><i class="fa fa-close" onclick="showImage()"></i></div>'+
-          '<div class="drop_area"></div>'+
+          '<div id="drop_area" ><i class="fa fa-plus fa-3x" style="color:#d8d8d8;margin-top:30px;"></i><h3 style="color:#d8d8d8;">Drag Image </h3> <h4 style="color:#d8d8d8;"> Click here to add image</h4></div>'+
         '<input type="text" name="imageurl" id="imgurl" placeholder="http://www.example.com/123.jpg"/>&nbsp;<input type="submit" id="imgsubmit" value="submit" /><br />'+
         '<div style="margin-top:10px;">Height&nbsp;<input type="range" min="0" max="500" step="10" onchange="rangevalue.value=value">&nbsp;<output id="rangevalue">50</output></div><br />'+
         '<div>Width&nbsp;<input type="range" min="0" max="500" step="10" onchange="rangevalue.value=value">&nbsp;<output id="rangevalue">50</output></div><br />'+
+        '<input type="submit" id="imgsubmit" value="submit" onclick="addImage()" />'+
      '</div>'+
 '</div>';
    editorCSS();
- 
+    //obtaining an image from browser and then rendering preview with the file reader
+    var target = document.getElementById("drop_area");
+target.addEventListener('dragover', function(e) {
+        e.preventDefault()
+        return false
+    })
+    target.addEventListener('dragenter', function(e) {
+        e.target.classList.add("dragover")
+        target.style.border = "2px dashed green"
+    })
+    function onLeave(e) {
+        e.target.classList.remove("dragover")
+        target.style.border ="2px dashed black"
+    }
+    target.addEventListener('dragleave', onLeave)
+    target.addEventListener('drop', function(e) {
+        e.preventDefault()
+        onLeave(e)
+       
+     //rendering a preview with the image obtained
+        var reader = new FileReader()
+        reader.onload = function (event) {
+          image = new Image()
+          image.style.width="160px"
+          image.style.height="200px"
+          image.style.position="relative"
+          image.style.top="-179px"
+          image.src = event.target.result
+          target.appendChild(image)
+          
+        }
+        reader.readAsDataURL(e.dataTransfer.files[0])
+    })
 };
 function editorCSS()
 {
     var modal_css = document.createElement('style');
     modal_css.type = "text/css";
     modal_css.id="_zip_id";
-    modal_css.innerHTML='#overlay {visibility: hidden;position: absolute;left: 0px;top: 0px;width:100%;height:100%;text-align:center;z-index: 1000;}#zip_image_box {width: 500px;margin: 155px auto;border-radius: 3px;height: 350px;background-color: #fff;border: 1px solid #eee;padding: 15px;text-align: center;-webkit-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);-moz-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);} .pullright{float:right;} .drop_area{  width: 350px;height: 200px;border: 1px dashed #d8d8d8;margin-left: 15%;margin-top: 20px;} #imgurl{width: 375px;height: 28px;margin-top: 30px;margin-left: -10px;border-radius: 2px;border: 1px solid #eee;padding-left:10px;}#imgsubmit{  height: 32px;width: 83px;background-color: rgb(118, 194, 118);border-radius: 2px;border: none;}input[type="range"] {-webkit-appearance: none !important;width: 75%;height: 3px;background-color: #A3CD99;border: 1px solid #97c68b;border-radius: 10px;margin: auto;transition: all 0.3s ease;}input[type="range"]:hover {background-color: #b2d5aa;}input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none !important;width: 20px;height: 20px;background-color: #579E81;border-radius: 30px;box-shadow: 0px 0px 3px #3c6d59;transition: all 0.5s ease;}input[type="range"]::-webkit-slider-thumb:hover {background-color: #457d66;}input[type="range"]::-webkit-slider-thumb:active {box-shadow: 0px 0px 1px #3c6d59;}#rangevalue {text-align: center;font-family: "Quantico", sans-serif;font-size: 18px;display: inline;margin: auto;padding: 10px 10px;width: 100%;color: #579E81;}';
+    modal_css.innerHTML='#overlay {visibility: hidden;position: absolute;left: 0px;top: 0px;width:100%;height:100%;text-align:center;z-index: 1000;}#zip_image_box {width: 500px;margin: 150px auto;border-radius: 3px;height: 400px;background-color: #fff;border: 1px solid #eee;padding: 15px;text-align: center;-webkit-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);-moz-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);} .pullright{float:right;} #drop_area{  width: 350px;height: 200px;border: 2px dashed #d8d8d8;margin-left: 15%;margin-top: 20px;} #imgurl{width: 375px;height: 28px;margin-top: 30px;margin-left: -10px;border-radius: 2px;border: 1px solid #eee;padding-left:10px;}#imgsubmit{  height: 32px;width: 83px;background-color: rgb(118, 194, 118);border-radius: 2px;border: none;}input[type="range"] {-webkit-appearance: none !important;width: 75%;height: 3px;background-color: #A3CD99;border: 1px solid #97c68b;border-radius: 10px;margin: auto;transition: all 0.3s ease;}input[type="range"]:hover {background-color: #b2d5aa;}input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none !important;width: 20px;height: 20px;background-color: #579E81;border-radius: 30px;box-shadow: 0px 0px 3px #3c6d59;transition: all 0.5s ease;}input[type="range"]::-webkit-slider-thumb:hover {background-color: #457d66;}input[type="range"]::-webkit-slider-thumb:active {box-shadow: 0px 0px 1px #3c6d59;}#rangevalue {text-align: center;font-family: "Quantico", sans-serif;font-size: 18px;display: inline;margin: auto;padding: 10px 10px;width: 100%;color: #579E81;}';
     document.body.appendChild(modal_css);
     var editor_container = document.getElementById("editor_container");
     editor_container.style.width= "1000px";
@@ -79,17 +113,19 @@ function editorCSS()
     editor_text.style.resize="none";
     editor_text.style.border="1px solid #ddd";
     editor_text.style.borderRadius="2px";
+    editor_text.style.padding="10px";
 }
 /*=============================calling a modal box for adding a new image to the document========================*/
 function addImage()
 {    
      var editor_text = document.getElementById("zippy-text-area");
-     var editor_image = document.createElement("img");
+     /*var editor_image = document.createElement("img");
     editor_image.src="http://t2.gstatic.com/images?q=tbn:ANd9GcQCze-mfukcuvzKk7Ilj2zQ0CS6PbOkq7ZhRInnNd1Yz3TQzU4e&t=1";
     editor_image.setAttribute("height", "50");
     editor_image.setAttribute("width", "50");
-    editor_image.setAttribute("alt", "Flower");
-    editor_text.appendChild(editor_image);
+    editor_image.setAttribute("alt", "Flower");*/
+    editor_text.appendChild(image);
+    showImage();
 }
 /*==============================function for getting the image and adding that to the text area=================*/
 function showImage()
@@ -117,7 +153,7 @@ function ShowSelection()
   {
     var startPos = textComponent.selectionStart;
     var endPos = textComponent.selectionEnd;
-    //var prev = textComponent.value.substring(0, startPos-1) + "<b>"
+    var prev = textComponent.value.substring(0, startPos-1) + "<b>"
     
     selectedText = textComponent.value.substring(startPos, endPos)
     selectedText.style.font  
@@ -127,3 +163,4 @@ function ShowSelection()
   }
   alert("You selected: " + selectedText);
 }
+/*==============================event on an image drop in the drop area===================*/
