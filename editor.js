@@ -138,6 +138,7 @@ function hideModal()
     
 }
 
+/*==============================function for aligning text area=================*/
 function boldSelection()
 {
     var txtCom = document.getElementById('zippy-text-area');
