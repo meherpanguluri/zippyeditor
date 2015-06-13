@@ -6,16 +6,16 @@ window.onload = function() {
         '<div  id="editor_container">'+
         '<div  id="toolbar_header">'+
                 '<ul id="toolbar">'+
-                   '<a href="#" onclick="ShowSelection()"> <li><i class="fa fa-bold"></i></li></a>'+
+                   '<a href="#" onclick="boldSelection()"> <li><i class="fa fa-bold"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-italic"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-underline"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-header"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-font"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-undo"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-repeat"></i></li></a>'+
-                    ' <a href="#"><li ><i class="fa fa-align-left"></i></li></a>'+
-                    '<a href="#"><li ><i class="fa fa-align-justify"></i></li></a>'+
-                    '<a href="#"><li ><i class="fa fa-align-right"></i></li></a>'+
+                    ' <a href="#" onclick="alignLeft()"><li ><i class="fa fa-align-left"></i></li></a>'+
+                    '<a href="#" onclick="alignJustify()"><li ><i class="fa fa-align-justify"></i></li></a>'+
+                    '<a href="#" onclick="alignRight()"><li ><i class="fa fa-align-right"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ol"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ul"></i></li></a>'+
                    ' <a href="#" onclick="addTable()"><li ><i class="fa fa-table"></i></li></a>'+
@@ -25,7 +25,7 @@ window.onload = function() {
                    ' <a href="#"><li ><i class="fa fa-save"></i></li></a>'+
                 '</ul>'+
         '</div>'+
-             '<div id="zippy-text-area" contentEditable="true"></div>'+
+             '<div id="zippy-text-area" contentEditable="true">type here</div>'+
     '</div>'+
     '<div id="overlay">'+
      '<div id="zip_image_box">'+
@@ -52,12 +52,12 @@ window.onload = function() {
     //obtaining an image from browser and then rendering preview with the file reader
     var target = document.getElementById("drop_area");
 target.addEventListener('dragover', function(e) {
-        e.preventDefault()
-        return false
+        e.preventDefault();
+        return false;
     })
     target.addEventListener('dragenter', function(e) {
-        e.target.classList.add("dragover")
-        target.style.border = "2px dashed green"
+        e.target.classList.add("dragover");
+        target.style.border = "2px dashed green";
     })
     function onLeave(e) {
         e.target.classList.remove("dragover")
@@ -173,8 +173,11 @@ function addLink()
         textComponent.appendChild(zip_a);
     }
 }
-function ShowSelection()
+
+/*==============================function for aligning text area=================*/
+function boldSelection()
 {
+
   var textComponent = document.getElementById('zippy-text-area');
   var selectedText;
   // IE version
@@ -220,3 +223,59 @@ function addTable()
     }
     textComponent.appendChild(zip_table);
 }
+
+    var txtCom = document.getElementById('zippy-text-area');
+    var sel = window.getSelection;
+    alert(sel);
+    txtCom.style.fontWeight="bolder";
+    //txtCom.innerHTML = "<b>srineal</b>";
+    //alert(txtCom);
+}
+function alignLeft()
+{
+    var txtCom = document.getElementById('zippy-text-area');
+    txtCom.style.textAlign="left";
+    //alert(txtCom);
+}
+function alignRight()
+{
+    var txtCom = document.getElementById('zippy-text-area');
+    txtCom.style.textAlign="right";
+    //alert(txtCom);
+}
+function alignJustify()
+{
+    var txtCom = document.getElementById('zippy-text-area');
+    txtCom.style.textAlign="justify";
+    //alert(txtCom);
+}
+
+//function ShowSelection()
+//{
+//  var textComponent = document.getElementById('zippy-text-area').innerHTML;
+//  var selectedText;
+//    alert(""+textComponent.getSelection);
+//    console.log("this="+textComponent.nodeValue);
+//  // IE version
+//  if (document.selection != undefined)
+//  {
+//    textComponent.focus();
+//    var sel = document.selection.createRange();
+//    selectedText = sel.text;
+//  }
+//  // Mozilla version
+//  else if (textComponent.selectionStart != undefined)
+//  {
+//    var startPos = textComponent.selectionStart;
+//    var endPos = textComponent.selectionEnd;
+//    var prev = textComponent.value.substring(0, startPos-1) + "<b>";
+//    
+//    selectedText = textComponent.value.substring(startPos, endPos); 
+//    //var suc = "</b>"+textComponent.value.substring(endPos+1)
+//    textComponent.style.fontWeight="bolder";
+//    //textComponent.value = prev+selectedText+suc
+//  }
+//  alert("You selected: " + selectedText);
+//}
+/*==============================event on an image drop in the drop area===================*/
+
