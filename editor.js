@@ -224,13 +224,6 @@ function addTable()
     textComponent.appendChild(zip_table);
 }
 
-    var txtCom = document.getElementById('zippy-text-area');
-    var sel = window.getSelection;
-    alert(sel);
-    txtCom.style.fontWeight="bolder";
-    //txtCom.innerHTML = "<b>srineal</b>";
-    //alert(txtCom);
-}
 function alignLeft()
 {
     var txtCom = document.getElementById('zippy-text-area');
