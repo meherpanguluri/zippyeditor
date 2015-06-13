@@ -18,8 +18,8 @@ window.onload = function() {
                     '<a href="#"><li ><i class="fa fa-align-right"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ol"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ul"></i></li></a>'+
-                   ' <a href="#"><li ><i class="fa fa-table"></i></li></a>'+
-                    ' <a href="#"><li ><i class="fa fa-link"></i></li></a>'+
+                   ' <a href="#" onclick="addTable()"><li ><i class="fa fa-table"></i></li></a>'+
+                    ' <a href="#" onclick="showLink()"><li ><i class="fa fa-link"></i></li></a>'+
                    ' <a href="#" onclick="showImage()"><li><i class="fa fa-image"></i></li></a>'+
                    ' <a href="#"><li ><i class="fa fa-paperclip"></li></i></a>'+
                    ' <a href="#"><li ><i class="fa fa-save"></i></li></a>'+
@@ -34,9 +34,20 @@ window.onload = function() {
         '<input type="text" name="imageurl" id="imgurl" placeholder="http://www.example.com/123.jpg"/>&nbsp;<input type="submit" id="imgsubmit" value="submit" /><br />'+
         '<div style="margin-top:10px;">Height&nbsp;<input type="range" min="0" max="500" step="10" onchange="rangevalue.value=value">&nbsp;<output id="rangevalue">50</output></div><br />'+
         '<div>Width&nbsp;<input type="range" min="0" max="500" step="10" onchange="rangevalue.value=value">&nbsp;<output id="rangevalue">50</output></div><br />'+
-        '<input type="submit" id="imgsubmit" value="submit" onclick="addImage()" />'+
+        '<input type="submit" class="imgsubmit" value="submit" onclick="addImage()" />'+
      '</div>'+
-'</div>';
+'</div>'+
+'<div id="linklay">'+
+        '<div id="link_box">'+
+     '<div class="pull-right"><i class="fa fa-close" onclick="showLink()"></i></div>'+
+        '<div>Add Links</div>'+
+        '<div class="zip_form">'+
+        'URL:<input type="text" name="link" id="link"/><br />'+
+        'Alias:<input type="text" name="alias" placeholder="optional" id="alias"/><br />'+
+        '<input type="submit" name="submit" value="add link" class="imgsubmit" onclick="addLink()"/>'+
+        '</div>'+
+        '</div>'+
+ '</div>';
    editorCSS();
     //obtaining an image from browser and then rendering preview with the file reader
     var target = document.getElementById("drop_area");
@@ -77,7 +88,7 @@ function editorCSS()
     var modal_css = document.createElement('style');
     modal_css.type = "text/css";
     modal_css.id="_zip_id";
-    modal_css.innerHTML='#overlay {visibility: hidden;position: absolute;left: 0px;top: 0px;width:100%;height:100%;text-align:center;z-index: 1000;}#zip_image_box {width: 500px;margin: 150px auto;border-radius: 3px;height: 400px;background-color: #fff;border: 1px solid #eee;padding: 15px;text-align: center;-webkit-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);-moz-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);} .pullright{float:right;} #drop_area{  width: 350px;height: 200px;border: 2px dashed #d8d8d8;margin-left: 15%;margin-top: 20px;} #imgurl{width: 375px;height: 28px;margin-top: 30px;margin-left: -10px;border-radius: 2px;border: 1px solid #eee;padding-left:10px;}#imgsubmit{  height: 32px;width: 83px;background-color: rgb(118, 194, 118);border-radius: 2px;border: none;}input[type="range"] {-webkit-appearance: none !important;width: 75%;height: 3px;background-color: #A3CD99;border: 1px solid #97c68b;border-radius: 10px;margin: auto;transition: all 0.3s ease;}input[type="range"]:hover {background-color: #b2d5aa;}input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none !important;width: 20px;height: 20px;background-color: #579E81;border-radius: 30px;box-shadow: 0px 0px 3px #3c6d59;transition: all 0.5s ease;}input[type="range"]::-webkit-slider-thumb:hover {background-color: #457d66;}input[type="range"]::-webkit-slider-thumb:active {box-shadow: 0px 0px 1px #3c6d59;}#rangevalue {text-align: center;font-family: "Quantico", sans-serif;font-size: 18px;display: inline;margin: auto;padding: 10px 10px;width: 100%;color: #579E81;}';
+    modal_css.innerHTML='#overlay {visibility: hidden;position: absolute;left: 0px;top: 0px;width:100%;height:100%;text-align:center;z-index: 1000;}#linklay {visibility: hidden;position: absolute;left: 0px;top: 0px;width:100%;height:100%;text-align:center;z-index: 1000;}#link_box{width: 480px;margin: 230px auto;border-radius: 3px;height: 175px;background-color: #fff;border: 1px solid #eee;padding: 15px;text-align: center;-webkit-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);-moz-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);}#zip_image_box {width: 500px;margin: 150px auto;border-radius: 3px;height: 400px;background-color: #fff;border: 1px solid #eee;padding: 15px;text-align: center;-webkit-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);-moz-box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);box-shadow: 3px 3px 7px 0px rgba(50, 42, 50, 0.66);} .pullright{float:right;} #drop_area{  width: 350px;height: 200px;border: 2px dashed #d8d8d8;margin-left: 15%;margin-top: 20px;} #imgurl{width: 375px;height: 28px;margin-top: 30px;margin-left: -10px;border-radius: 2px;border: 1px solid #eee;padding-left:10px;}.imgsubmit{  height: 32px;width: 83px;background-color: rgb(118, 194, 118);border-radius: 2px;border: none;}input[type="range"] {-webkit-appearance: none !important;width: 75%;height: 3px;background-color: #A3CD99;border: 1px solid #97c68b;border-radius: 10px;margin: auto;transition: all 0.3s ease;}input[type="range"]:hover {background-color: #b2d5aa;}input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none !important;width: 20px;height: 20px;background-color: #579E81;border-radius: 30px;box-shadow: 0px 0px 3px #3c6d59;transition: all 0.5s ease;}input[type="range"]::-webkit-slider-thumb:hover {background-color: #457d66;}input[type="range"]::-webkit-slider-thumb:active {box-shadow: 0px 0px 1px #3c6d59;}#rangevalue {text-align: center;font-family: "Quantico", sans-serif;font-size: 18px;display: inline;margin: auto;padding: 10px 10px;width: 100%;color: #579E81;}.zip_form input[type=text],.zip_form input[type=password],.zip_form input[type=submit] {font-family: "Roboto";}.zip_form input[type=text],.zip_form input[type=password] {  width: 70%;height: 40px;margin-bottom: 10px;padding-left: 15px;background: #fff;border: none;color: #e74c3c;outline: none;border: 1px solid #ddd;border-radius: 3px;}';
     document.body.appendChild(modal_css);
     var editor_container = document.getElementById("editor_container");
     editor_container.style.width= "1000px";
@@ -133,9 +144,34 @@ function showImage()
     el = document.getElementById("overlay");
 	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 }
-function hideModal()
+/*===========================function for getting the link and appending to the text area============= */
+function showLink()
 {
-    
+    el = document.getElementById("linklay");
+	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+function addLink()
+{
+    var zip_link = document.getElementById("link").value;
+    var zip_alias = document.getElementById("alias").value;
+    document.getElementById("link").value="";
+    document.getElementById("alias").value="";
+    showLink();
+    var textComponent = document.getElementById('zippy-text-area');
+    if(zip_alias=="")
+    {
+        var zip_a = document.createElement("a");
+        zip_a.href=zip_link;
+        zip_a.innerHTML=zip_link;
+        textComponent.appendChild(zip_a);
+    }
+    else
+    {
+        var zip_a = document.createElement("a");
+        zip_a.href=zip_link;
+        zip_a.innerHTML=zip_alias;
+        textComponent.appendChild(zip_a);
+    }
 }
 function ShowSelection()
 {
@@ -155,12 +191,32 @@ function ShowSelection()
     var endPos = textComponent.selectionEnd;
     var prev = textComponent.value.substring(0, startPos-1) + "<b>"
     
-    selectedText = textComponent.value.substring(startPos, endPos)
-    selectedText.style.font  
+    selectedText = textComponent.value.substring(startPos, endPos);
     //var suc = "</b>"+textComponent.value.substring(endPos+1)
     textComponent.style.fontWeight="bolder"
     //textComponent.value = prev+selectedText+suc
   }
   alert("You selected: " + selectedText);
 }
-/*==============================event on an image drop in the drop area===================*/
+/*==============================creating new table===================*/
+function addTable()
+{
+    var textComponent = document.getElementById('zippy-text-area');
+    var zip_table = document.createElement("table");
+    zip_table.border='1';
+    var zip_table_body = document.createElement("tbody");
+    zip_table.appendChild(zip_table_body);
+    for(var i=0;i<3;i++)
+    {
+        var zip_tr = document.createElement("tr");
+        zip_table_body.appendChild(zip_tr);
+        for(var j=0;j<4;j++)
+        {
+            var zip_td = document.createElement("td");
+            zip_td.style.width="100px";
+            zip_td.style.height="50px";
+            zip_tr.appendChild(zip_td);
+        }
+    }
+    textComponent.appendChild(zip_table);
+}
