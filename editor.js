@@ -7,8 +7,8 @@ window.onload = function() {
         '<div  id="toolbar_header">'+
                 '<ul id="toolbar">'+
                    '<a href="#" onclick="boldSelection()"> <li><i class="fa fa-bold"></i></li></a>'+
-                    '<a href="#"><li ><i class="fa fa-italic"></i></li></a>'+
-                    '<a href="#"><li ><i class="fa fa-underline"></i></li></a>'+
+                    '<a href="#" onclick="italicSelection()"><li ><i class="fa fa-italic"></i></li></a>'+
+                    '<a href="#" onclick="underlineSelection()"><li ><i class="fa fa-underline"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-header"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-font"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-undo"></i></li></a>'+
@@ -175,36 +175,38 @@ function addLink()
 }
 
 /*==============================function for aligning text area=================*/
-function boldSelection()
-{
+//function boldSelection()
+//{
+//
+//  var textComponent = document.getElementById('zippy-text-area');
+//  var selectedText;
+//  // IE version
+//  if (document.selection != undefined)
+//  {
+//    textComponent.focus();
+//    var sel = document.selection.createRange();
+//    selectedText = sel.text;
+//  }
+//  // Mozilla version
+//  else if (textComponent.selectionStart != undefined)
+//  {
+//    var startPos = textComponent.selectionStart;
+//    var endPos = textComponent.selectionEnd;
+//    var prev = textComponent.value.substring(0, startPos-1) + "<b>"
+//    
+//    selectedText = textComponent.value.substring(startPos, endPos);
+//    //var suc = "</b>"+textComponent.value.substring(endPos+1)
+//    textComponent.style.fontWeight="bolder"
+//    //textComponent.value = prev+selectedText+suc
+//  }
+//  alert("You selected: " + selectedText);
+//}
 
-  var textComponent = document.getElementById('zippy-text-area');
-  var selectedText;
-  // IE version
-  if (document.selection != undefined)
-  {
-    textComponent.focus();
-    var sel = document.selection.createRange();
-    selectedText = sel.text;
-  }
-  // Mozilla version
-  else if (textComponent.selectionStart != undefined)
-  {
-    var startPos = textComponent.selectionStart;
-    var endPos = textComponent.selectionEnd;
-    var prev = textComponent.value.substring(0, startPos-1) + "<b>"
-    
-    selectedText = textComponent.value.substring(startPos, endPos);
-    //var suc = "</b>"+textComponent.value.substring(endPos+1)
-    textComponent.style.fontWeight="bolder"
-    //textComponent.value = prev+selectedText+suc
-  }
-  alert("You selected: " + selectedText);
-}
+
 /*==============================creating new table===================*/
 function addTable()
 {
-    var textComponent = document.getElementById('zippy-text-area');
+    var textComponent = document.getElemenstById('zippy-text-area');
     var zip_table = document.createElement("table");
     zip_table.border='1';
     var zip_table_body = document.createElement("tbody");
@@ -224,6 +226,52 @@ function addTable()
     textComponent.appendChild(zip_table);
 }
 
+/*==============================function for bolding text area=================*/
+function boldSelection()
+{
+    var txtCom = document.getElementById('zippy-text-area');
+    //txtCom.style.fontWeight="bold";
+//    var highlight = window.getSelection();
+//    var text = txtCom.innerHTML;
+    
+//    var span = "<span class="bold">" + highlight+"</span>";
+//    txtCom.innerHTML = text.replace(highlight, '<span class="bold">' + highlight + '</span>');
+    
+    if(txtCom.style.fontWeight == "bold")
+        txtCom.style.fontWeight="normal";
+    else
+        txtCom.style.fontWeight="bold";
+}
+
+/*==============================function for italicizing text area=================*/
+function italicSelection()
+{
+    //var highlight = window.getSelection();
+    //var st = window.Selection;
+    //alert(st);
+    var txtCom = document.getElementById('zippy-text-area');
+    //txtCom.style.fontStyle="italic";
+    if(txtCom.style.fontStyle == "italic")
+        txtCom.style.fontStyle="normal";
+    else
+        txtCom.style.fontStyle="italic";
+    
+}
+
+/*==============================function for italicizing text area=================*/
+function underlineSelection()
+{
+    var txtCom = document.getElementById('zippy-text-area');
+    //txtCom.style.fontStyle="italic";
+    if(txtCom.style.textDecoration == "underline")
+        txtCom.style.textDecoration="none";
+    else
+        txtCom.style.textDecoration="underline"
+    //txtCom.style.textDecoration="underline";
+    
+}
+
+/*==============================function for aligning text area=================*/
 function alignLeft()
 {
     var txtCom = document.getElementById('zippy-text-area');
@@ -243,32 +291,6 @@ function alignJustify()
     //alert(txtCom);
 }
 
-//function ShowSelection()
-//{
-//  var textComponent = document.getElementById('zippy-text-area').innerHTML;
-//  var selectedText;
-//    alert(""+textComponent.getSelection);
-//    console.log("this="+textComponent.nodeValue);
-//  // IE version
-//  if (document.selection != undefined)
-//  {
-//    textComponent.focus();
-//    var sel = document.selection.createRange();
-//    selectedText = sel.text;
-//  }
-//  // Mozilla version
-//  else if (textComponent.selectionStart != undefined)
-//  {
-//    var startPos = textComponent.selectionStart;
-//    var endPos = textComponent.selectionEnd;
-//    var prev = textComponent.value.substring(0, startPos-1) + "<b>";
-//    
-//    selectedText = textComponent.value.substring(startPos, endPos); 
-//    //var suc = "</b>"+textComponent.value.substring(endPos+1)
-//    textComponent.style.fontWeight="bolder";
-//    //textComponent.value = prev+selectedText+suc
-//  }
-//  alert("You selected: " + selectedText);
-//}
+
 /*==============================event on an image drop in the drop area===================*/
 
