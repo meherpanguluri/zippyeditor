@@ -23,6 +23,7 @@ window.onload = function() {
                    ' <a href="#" onclick="showImage()"><li><i class="fa fa-image"></i></li></a>'+
                    ' <a href="#"><li ><i class="fa fa-paperclip"></li></i></a>'+
                    ' <a href="#"><li ><i class="fa fa-save"></i></li></a>'+
+                   ' <a href="#" onclick="myFunction()"><li><input type="color" id="myColor"/></li></a>'+
                 '</ul>'+
         '</div>'+
              '<div id="zippy-text-area" contentEditable="true">type here</div>'+
@@ -78,7 +79,7 @@ target.addEventListener('dragover', function(e) {
     target.addEventListener('drop', function(e) {
         e.preventDefault()
         onLeave(e)
-       
+
      //rendering a preview with the image obtained
         var reader = new FileReader()
         reader.onload = function (event) {
@@ -94,6 +95,11 @@ target.addEventListener('dragover', function(e) {
         reader.readAsDataURL(e.dataTransfer.files[0])
     })
 };
+    /*========================function for text color selection=======================*/
+    function myFunction() {
+    var x = document.getElementById("myColor").value;
+    document.getElementById("zippy-text-area").style.color = x;
+}
 function editorCSS()
 {
     var modal_css = document.createElement('style');
@@ -313,7 +319,6 @@ function alignJustify()
     txtCom.style.textAlign="justify";
     //alert(txtCom);
 }
-
 
 /*==============================event on an image drop in the drop area===================*/
 
