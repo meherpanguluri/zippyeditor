@@ -10,20 +10,26 @@ window.onload = function() {
                     '<a href="#" onclick="italicSelection()"><li ><i class="fa fa-italic"></i></li></a>'+
                     '<a href="#" onclick="underlineSelection()"><li ><i class="fa fa-underline"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-header"></i></li></a>'+
-                    '<a href="#"><li ><i class="fa fa-font"></i></li></a>'+
+                     '<li><select id="ffam" class="fa fa-font" onchange="selfont()" style="max-width:70px;">'+
+                        '<option value="arial">Arial</option>'+
+                        '<option value="times new roman">Times New Roman</option>'+
+                        '<option value="verdana">Verdana</option>'+
+                        '<option value="georgia">Georgia</option>'+
+                        '<option value="tahoma">Tahoma</option>'+
+                        '<option value="calibri">Calibri</option>'+
+                    '</select></li>' +    
                     '<a href="#" onclick="doundo()"><li ><i class="fa fa-undo"></i></li></a>'+
                     '<a href="#" onclick="doredo()"><li ><i class="fa fa-repeat"></i></li></a>'+
-                    ' <a href="#" onclick="alignLeft()"><li ><i class="fa fa-align-left"></i></li></a>'+
+                    '<a href="#" onclick="alignLeft()"><li ><i class="fa fa-align-left"></i></li></a>'+
                     '<a href="#" onclick="alignJustify()"><li ><i class="fa fa-align-justify"></i></li></a>'+
                     '<a href="#" onclick="alignRight()"><li ><i class="fa fa-align-right"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ol"></i></li></a>'+
                     '<a href="#"><li ><i class="fa fa-list-ul"></i></li></a>'+
-                   ' <a href="#" onclick="showTable()"><li ><i class="fa fa-table"></i></li></a>'+
-                    ' <a href="#" onclick="showLink()"><li ><i class="fa fa-link"></i></li></a>'+
-                   ' <a href="#" onclick="showImage()"><li><i class="fa fa-image"></i></li></a>'+
-                   ' <a href="#"><li ><i class="fa fa-paperclip"></li></i></a>'+
-                   ' <a href="#"><li ><i class="fa fa-save"></i></li></a>'+
-                   ' <a href="#" onclick="myFunction()"><li><input type="color" id="myColor"></input></li></a>'+
+                   '<a href="#" onclick="showTable()"><li ><i class="fa fa-table"></i></li></a>'+
+                   '<a href="#" onclick="showLink()"><li ><i class="fa fa-link"></i></li></a>'+
+                   '<a href="#" onclick="showImage()"><li><i class="fa fa-image"></i></li></a>'+
+                   '<a href="#" onclick="dosave()"><li ><i class="fa fa-save"></i></li></a>'+
+                   '<a href="#" onclick="myFunction()"><li><input type="color" id="myColor" style="max-width:20px;"></input></li></a>'+
                 '</ul>'+
         '</div>'+
              '<div id="zippy-text-area" contentEditable="true">type here</div>'+
@@ -332,5 +338,20 @@ function doredo()
 {
     var txtCom = document.getElementById('zippy-text-area');
     txtCom = document.execCommand('redo', false, null);
+}
+/*===============function for font selection============*/
+    /*<select id="ffam" class="input" onchange="selfont (this);">
+        <option value="arial">Arial</option>
+        <option value="times new roman">Times New Roman</option>
+        <option value="verdana">Verdana</option>
+        <option value="georgia">Georgia</option>
+        <option value="tahoma">Tahoma</option>
+        <option value="calibri">Calibri</option>
+     </select>*/
+//var selfont = function(font)
+function selfont()
+{            
+        var txtCom = document.getElementById("ffam").value;
+        document.getElementById('zippy-text-area').style.fontFamily = txtCom;
 }
 
